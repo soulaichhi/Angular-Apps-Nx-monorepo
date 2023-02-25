@@ -9,7 +9,7 @@
           "error",
           {
             "type": "attribute",
-            "prefix": "ngshop",
+            "prefix": "angAppsMonorepo",
             "style": "camelCase"
           }
         ],
@@ -17,7 +17,7 @@
           "error",
           {
             "type": "element",
-            "prefix": "ngshop",
+            "prefix": "ang-apps-monorepo",
             "style": "kebab-case"
           }
         ]
