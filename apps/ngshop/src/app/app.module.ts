@@ -8,7 +8,7 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
 import { ProductListComponent } from './pages/product-list/product-list.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
-
+import { UiModule} from '@ang-apps-monorepo/ui'
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +19,8 @@ import { FooterComponent } from './shared/footer/footer.component';
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(appRoutes, { initialNavigation: 'enabledBlocking' }),
+    RouterModule.forRoot(appRoutes),
+    UiModule
   ],
   providers: [],
   bootstrap: [AppComponent],
