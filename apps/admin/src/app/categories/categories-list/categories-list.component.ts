@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {CategoriesService} from "../../../../../../libs/products/src/lib/services/categories.service";
 
 @Component({
   selector: 'admin-categories-list',
@@ -34,4 +35,6 @@ export class CategoriesListComponent {
       icon: 'icon-5'
     },
   ];
+  constructor(private categoriesServices: CategoriesService) {
+  }
 }
