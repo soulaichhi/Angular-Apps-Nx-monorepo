@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <div class="admin-page">
   <p-card header="Add Category" subheader="You can add or edit category">
     <div class="grid mb-5">
@@ -11,11 +12,11 @@
               label="Create"
               icon="pi pi-plus"
               class="p-button-success mr-2"
+              (click)="onSubmit()"
             ></button>
             <button
               pButton
               type="button"
-              routerLink="form"
               label="Cancel"
               icon="pi pi-arrow-circle-left"
               class="p-button-primary"
@@ -26,24 +27,36 @@
     </div>
     <div class="grid">
       <div class="col-12">
-        <form>
+        <form [formGroup]="form">
           <div class="card">
             <div class="formgrid grid">
               <div class="field col">
                 <label for="name">Name</label>
                 <input
                   id="name"
+                  formControlName="name"
                   type="text"
                   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                 />
+                <small
+                  *ngIf="categoryForm.name.invalid && isSubmitted"
+                  class="p-error"
+                  >Name is Required</small
+                >
               </div>
               <div class="field col">
                 <label for="icon">Icon</label>
                 <input
                   id="icon"
+                  formControlName="icon"
                   type="text"
                   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                 />
+                <small
+                  *ngIf="categoryForm.icon.invalid && isSubmitted"
+                  class="p-error"
+                  >Icon is Required</small
+                >
               </div>
             </div>
           </div>
