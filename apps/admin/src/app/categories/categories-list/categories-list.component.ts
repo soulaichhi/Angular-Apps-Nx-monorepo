@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import {CategoriesService} from "../../../../../../libs/products/src/lib/services/categories.service";
+import {Component, OnInit} from '@angular/core';
+import {CategoriesService, Category} from "@ang-apps-monorepo/products";
 
 @Component({
   selector: 'admin-categories-list',
@@ -7,34 +7,13 @@ import {CategoriesService} from "../../../../../../libs/products/src/lib/service
   styles: [
   ]
 })
-export class CategoriesListComponent {
-  categories = [
-    {
-      id: 1,
-      name: 'category-1',
-      icon: 'icon-1'
-    },
-    {
-      id: 2,
-      name: 'category-2',
-      icon: 'icon-2'
-    },
-    {
-      id: 3,
-      name: 'category-3',
-      icon: 'icon-3'
-    },
-    {
-      id: 4,
-      name: 'category-4',
-      icon: 'icon-4'
-    },
-    {
-      id: 5,
-      name: 'category-5',
-      icon: 'icon-5'
-    },
-  ];
+export class CategoriesListComponent implements OnInit{
+  categories: Category[] = [];
   constructor(private categoriesServices: CategoriesService) {
+  }
+  ngOnInit(): void {
+    this.categoriesServices.getCategories().subscribe(categories => {
+      this.categories = categories;
+    })
   }
 }
