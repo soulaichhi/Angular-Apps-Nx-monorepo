@@ -8,6 +8,7 @@ import { appRoutes } from './app.routes';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { ShellComponent } from './shared/shell/shell.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
+import { CategoriesService } from '@ang-apps-monorepo/products';
 import { CategoriesListComponent } from './categories/categories-list/categories-list.component';
 //UX
 import { CardModule } from 'primeng/card';
@@ -18,8 +19,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { CategoriesFormComponent } from './categories/categories-form/categories-form.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
-import { CategoriesService } from '@ang-apps-monorepo/products';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+
 const UX_MODULES = [
   CardModule,
   ToolbarModule,
@@ -27,6 +29,7 @@ const UX_MODULES = [
   TableModule,
   InputTextModule,
   ToastModule,
+  ConfirmDialogModule,
 ];
 @NgModule({
   declarations: [
@@ -46,7 +49,7 @@ const UX_MODULES = [
     RouterModule.forRoot(appRoutes, { initialNavigation: 'enabledBlocking' }),
     ...UX_MODULES,
   ],
-  providers: [CategoriesService, MessageService],
+  providers: [CategoriesService, MessageService, ConfirmationService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
