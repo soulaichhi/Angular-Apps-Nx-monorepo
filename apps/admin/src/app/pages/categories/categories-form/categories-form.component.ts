@@ -30,12 +30,16 @@ export class CategoriesFormComponent implements OnInit {
 
     this._checkEditMode();
   }
+  goBack() {
+    this.location.back();
+  }
 
   onSubmit() {
     this.isSubmitted = true;
     if (this.form.invalid) {
       return;
     }
+
     // console.log(this.categoryForm.name.value);
 
     // console.log(this.categoryForm.icon.value);
