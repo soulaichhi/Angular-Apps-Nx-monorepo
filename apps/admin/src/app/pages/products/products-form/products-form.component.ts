@@ -1,11 +1,63 @@
-import { Component } from '@angular/core';
-
+import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MessageService } from 'primeng/api';
+import {
+  CategoriesService,
+  Product,
+  ProductsService,
+} from '@ang-apps-monorepo/products';
 @Component({
   selector: 'admin-products-form',
   templateUrl: './products-form.component.html',
-  styles: [
-  ]
+  styles: [],
 })
-export class ProductsFormComponent {
+export class ProductsFormComponent implements OnInit {
+  form: FormGroup;
+  isSubmitted = false;
+  editMode = false;
+  currentProductId: string;
+  categories = [];
+  constructor(
+    private formBuilder: FormBuilder,
+    private location: Location,
+    private messageService: MessageService,
+    private productsService: ProductsService,
+    private categoriesService: CategoriesService
+  ) {}
 
+  ngOnInit(): void {
+    this._initForm();
+    this._getCategories();
+  }
+  private _initForm() {
+    this.form = this.formBuilder.group({
+      name: ['', Validators.required],
+      brand: ['', Validators.required],
+      price: ['', Validators.required],
+      rating: ['', Validators.required],
+      numReviews: [0, Validators.required],
+      description: ['', Validators.required],
+      category: ['', Validators.required],
+      countInStock: ['', Validators.required],
+      richDescription: [''],
+      image: [''],
+      isFeatured: [''],
+    });
+  }
+
+  private _getCategories() {
+    this.categoriesService.getCategories().subscribe((categories) => {
+      this.categories = categories;
+    });
+  }
+  onCancel() {
+    this.location.back();
+  }
+
+  onSubmit() {}
+
+  get productForm() {
+    return this.form.controls;
+  }
 }
