@@ -18,6 +18,7 @@ export class ProductsFormComponent implements OnInit {
   editMode = false;
   currentProductId: string;
   categories = [];
+  displayImage: string | ArrayBuffer;
   constructor(
     private formBuilder: FormBuilder,
     private location: Location,
@@ -56,6 +57,16 @@ export class ProductsFormComponent implements OnInit {
   }
 
   onSubmit() {}
+  onImageUpload(event) {
+    const file = event.target.files[0];
+    if (file) {
+      const fileReader = new FileReader();
+      fileReader.onload = () => {
+        this.displayImage = fileReader.result;
+      };
+      fileReader.readAsDataURL(file);
+    }
+  }
 
   get productForm() {
     return this.form.controls;
