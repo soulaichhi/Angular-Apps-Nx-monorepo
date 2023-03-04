@@ -113,7 +113,9 @@
               </div>
               <div class="field col-4">
                 <label for="isFeatured">Featured</label><br />
-                <p-inputSwitch formControlName="enabled"></p-inputSwitch>
+                <p-inputSwitch
+                  formControlName="richDescription"
+                ></p-inputSwitch>
               </div>
               <div class="field col-12">
                 <label for="description">Description</label><br />
@@ -128,6 +130,13 @@
                   class="p-error"
                   >Description is Required</small
                 >
+              </div>
+              <div class="field col-12">
+                <label for="richDescription">Product Details</label>
+                <p-editor
+                  formControlName="richDescription"
+                  [style]="{ height: '320px' }"
+                ></p-editor>
               </div>
             </div>
           </div>
