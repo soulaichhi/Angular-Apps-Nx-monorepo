@@ -23,6 +23,8 @@
           [value]="products"
           styleClass="p-datatable-gridlines"
           [tableStyle]="{ 'min-width': '50rem' }"
+          [paginator]="true"
+          [rows]="10"
         >
           <ng-template pTemplate="header">
             <tr>
