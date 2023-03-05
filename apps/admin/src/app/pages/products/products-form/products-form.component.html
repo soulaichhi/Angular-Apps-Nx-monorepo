@@ -104,6 +104,7 @@
                   [options]="categories"
                   formControlName="category"
                   optionLabel="name"
+                  optionValue="id"
                 ></p-dropdown>
                 <small
                   *ngIf="productForm.category.invalid && isSubmitted"
@@ -113,9 +114,7 @@
               </div>
               <div class="field col-4">
                 <label for="isFeatured">Featured</label><br />
-                <p-inputSwitch
-                  formControlName="richDescription"
-                ></p-inputSwitch>
+                <p-inputSwitch formControlName="isFeatured"></p-inputSwitch>
               </div>
               <div class="field col-12">
                 <label for="description">Description</label><br />
