@@ -24,11 +24,15 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ColorPickerModule } from 'primeng/colorpicker';
 import { ProductsListComponent } from './pages/products/products-list/products-list.component';
 import { ProductsFormComponent } from './pages/products/products-form/products-form.component';
+import { UsersFormComponent } from './pages/users/users-form/users-form.component';
+import { UsersListComponent } from './pages/users/users-list/users-list.component';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { DropdownModule } from 'primeng/dropdown';
 import { EditorModule } from 'primeng/editor';
+import { TagModule } from 'primeng/tag';
+
 const UX_MODULES = [
   CardModule,
   ToolbarModule,
@@ -43,6 +47,7 @@ const UX_MODULES = [
   InputSwitchModule,
   DropdownModule,
   EditorModule,
+  TagModule,
 ];
 @NgModule({
   declarations: [
@@ -54,6 +59,8 @@ const UX_MODULES = [
     CategoriesFormComponent,
     ProductsListComponent,
     ProductsFormComponent,
+    UsersFormComponent,
+    UsersListComponent,
   ],
   imports: [
     BrowserModule,
