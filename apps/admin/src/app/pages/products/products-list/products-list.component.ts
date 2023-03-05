@@ -1,5 +1,6 @@
 import { Product, ProductsService } from '@ang-apps-monorepo/products';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'admin-products-list',
@@ -9,7 +10,10 @@ import { Component, OnInit } from '@angular/core';
 export class ProductsListComponent implements OnInit {
   products: Product[];
 
-  constructor(private productsService: ProductsService) {}
+  constructor(
+    private productsService: ProductsService,
+    private router: Router
+  ) {}
   ngOnInit(): void {
     this._getProducts();
   }
@@ -18,5 +22,9 @@ export class ProductsListComponent implements OnInit {
     this.productsService.getProducts().subscribe((products) => {
       this.products = products;
     });
+  }
+
+  updateProduct(productId: string) {
+    this.router.navigateByUrl(`/products/form/${productId}`);
   }
 }
