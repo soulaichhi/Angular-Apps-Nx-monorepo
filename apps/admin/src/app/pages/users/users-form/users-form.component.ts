@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { timer } from 'rxjs';
+
 @Component({
   selector: 'admin-users-form',
   templateUrl: './users-form.component.html',
@@ -15,7 +16,7 @@ export class UsersFormComponent implements OnInit {
   isSubmitted = false;
   editMode = false;
   currentUserId: string;
-  users: User[] = [];
+  countries = [];
   constructor(
     private formBuilder: FormBuilder,
     private usersService: UsersService,
@@ -25,6 +26,7 @@ export class UsersFormComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this._initUserForm();
+    this._getCountries();
     this._checkEditMode();
   }
 
@@ -41,6 +43,9 @@ export class UsersFormComponent implements OnInit {
       city: [''],
       country: [''],
     });
+  }
+  private _getCountries() {
+    this.countries = this.usersService.getCountries();
   }
 
   private _addUser(user: User) {
@@ -76,6 +81,7 @@ export class UsersFormComponent implements OnInit {
       return;
     }
     const user: User = {
+      id: this.currentUserId,
       name: this.userForm.name.value,
       email: this.userForm.email.value,
       password: this.userForm.password.value,
@@ -125,6 +131,7 @@ export class UsersFormComponent implements OnInit {
         this.usersService.getUser(params.id).subscribe((user) => {
           this.userForm.name.setValue(user.name);
           this.userForm.email.setValue(user.email);
+          this.userForm.phone.setValue(user.phone);
           this.userForm.isAdmin.setValue(user.isAdmin);
           this.userForm.street.setValue(user.street);
           this.userForm.apartment.setValue(user.apartment);
