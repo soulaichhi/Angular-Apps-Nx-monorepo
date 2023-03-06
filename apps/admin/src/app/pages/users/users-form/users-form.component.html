@@ -1,1 +1,147 @@
-<p>users-form works!</p>
+<p-toast></p-toast>
+<div class="admin-page">
+  <p-card
+    [header]="editMode ? 'Edit User' : 'Add User'"
+    subheader="You can add or edit users"
+  >
+    <div class="grid mb-5">
+      <div class="col-12">
+        <p-toolbar>
+          <div class="p-toolbar-group-left"></div>
+          <div class="p-toolbar-group-right">
+            <button
+              pButton
+              type="button"
+              [label]="editMode ? 'Update' : 'Create'"
+              icon="pi pi-plus"
+              class="p-button-success mr-2"
+              (click)="onSubmit()"
+            ></button>
+            <button
+              pButton
+              type="button"
+              label="Cancel"
+              icon="pi pi-arrow-circle-left"
+              class="p-button-primary"
+              (click)="goBack()"
+            ></button>
+          </div>
+        </p-toolbar>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="col-12">
+        <form [formGroup]="form">
+          <div class="card">
+            <div class="formgrid grid">
+              <div class="field col-4">
+                <label for="name">Name</label><br />
+                <input
+                  pInputText
+                  id="name"
+                  formControlName="name"
+                  type="text"
+                />
+                <br />
+                <small
+                  *ngIf="userForm.name.invalid && isSubmitted"
+                  class="p-error"
+                  >Name is Required</small
+                >
+              </div>
+              <div class="field col-4">
+                <label for="name">Email</label><br />
+                <input
+                  pInputText
+                  id="email"
+                  formControlName="email"
+                  type="text"
+                />
+                <br />
+                <small
+                  *ngIf="userForm.email.invalid && isSubmitted"
+                  class="p-error"
+                  ><span *ngIf="userForm.email.errors.required"
+                    >Email is Required</span
+                  ><span *ngIf="userForm.email.errors.email"
+                    >Email is invalid</span
+                  ></small
+                >
+              </div>
+              <div class="field col-4">
+                <label for="name">Password</label><br />
+                <input
+                  pInputText
+                  id="password"
+                  formControlName="password"
+                  type="text"
+                />
+                <br />
+                <small
+                  *ngIf="userForm.password.invalid && isSubmitted"
+                  class="p-error"
+                  >Password is Required</small
+                >
+              </div>
+              <div class="field col-4">
+                <label for="name">Phone</label><br />
+                <p-inputMask
+                  mask="(+999) 999-999999"
+                  placeholder="(999) 999-999999"
+                  id="phone"
+                  formControlName="phone"
+                  type="text"
+                ></p-inputMask
+                ><br />
+                <small
+                  *ngIf="userForm.password.invalid && isSubmitted"
+                  class="p-error"
+                  >Phone is Required</small
+                >
+              </div>
+              <div class="field col-4">
+                <label for="isAdmin">Admin</label><br />
+                <p-inputSwitch formControlName="isAdmin"></p-inputSwitch>
+              </div>
+              <div class="field col-4">
+                <label for="street">Street</label><br />
+                <input
+                  pInputText
+                  type="text"
+                  formControlName="street"
+                  id="street"
+                />
+              </div>
+              <div class="field col-4">
+                <label for="apartment">Apartment</label><br />
+                <input
+                  pInputText
+                  type="text"
+                  formControlName="apartment"
+                  id="apartment"
+                />
+              </div>
+              <div class="field col-4">
+                <label for="zip">Zip Code</label><br />
+                <input pInputText type="text" formControlName="zip" id="zip" />
+              </div>
+              <div class="field col-4">
+                <label for="country">Country</label><br />
+                <p-dropdown
+                  [filter]="true"
+                  filterBy="name"
+                  [showClear]="true"
+                  placeholder="Select a Country"
+                  [options]="users"
+                  formControlName="country"
+                  optionLabel="name"
+                  optionValue="id"
+                ></p-dropdown>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </p-card>
+</div>

@@ -32,7 +32,7 @@ import { InputSwitchModule } from 'primeng/inputswitch';
 import { DropdownModule } from 'primeng/dropdown';
 import { EditorModule } from 'primeng/editor';
 import { TagModule } from 'primeng/tag';
-
+import { InputMaskModule } from 'primeng/inputmask';
 const UX_MODULES = [
   CardModule,
   ToolbarModule,
@@ -48,6 +48,7 @@ const UX_MODULES = [
   DropdownModule,
   EditorModule,
   TagModule,
+  InputMaskModule,
 ];
 @NgModule({
   declarations: [
