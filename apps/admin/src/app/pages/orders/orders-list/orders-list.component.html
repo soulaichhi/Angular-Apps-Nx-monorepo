@@ -29,8 +29,13 @@
             <tr>
               <td>{{ order.user.name }}</td>
               <td>{{ order.totalPrice }}</td>
-              <td>{{ order.dateOrdered }}</td>
-              <td>{{ order.status }}</td>
+              <td>{{ order.dateOrdered | date : 'short' }}</td>
+              <td>
+                <p-tag
+                  [severity]="orderStatus[order.status].color"
+                  [value]="orderStatus[order.status].label"
+                ></p-tag>
+              </td>
 
               <td>
                 <button
