@@ -9,7 +9,7 @@
         </div>
         <div class="col-4">
           <h5>Order Date</h5>
-          <p>{{ order.dateOrdered }}</p>
+          <p>{{ order.dateOrdered | date : 'short' }}</p>
         </div>
         <div class="col-4">
           <h5>Order Status</h5>
@@ -17,12 +17,33 @@
         </div>
         <div class="col-4">
           <h5>Order Total Price</h5>
-          <p>{{ order.totalPrice }}</p>
+          <p>{{ order.totalPrice | currency }}</p>
         </div>
       </div>
     </p-fieldset>
     <p-fieldset styleClass="mb-4" legend="Order Items" [toggleable]="true">
-      Content
+      <div class="grid mb-5">
+        <div class="col-2 font-bold">Name</div>
+        <div class="col-2 font-bold">Brand</div>
+        <div class="col-2 font-bold">Category</div>
+        <div class="col-2 font-bold">Price</div>
+        <div class="col-2 font-bold">Quantity</div>
+        <div class="col-2 font-bold">Subtotal</div>
+      </div>
+      <div class="grid mb-5" *ngFor="let orderItem of order.orderItems">
+        <div class="col-2">{{ orderItem.product.name }}</div>
+        <div class="col-2">{{ orderItem.product.brand }}</div>
+        <div class="col-2">{{ orderItem.product.category.name }}</div>
+        <div class="col-2">{{ orderItem.product.price | currency }}</div>
+        <div class="col-2">{{ orderItem.quantity }}</div>
+        <div class="col-2">
+          {{ orderItem.product.price * orderItem.quantity | currency }}
+        </div>
+      </div>
+      <div class="grid text-green-800">
+        <div class="col-2 col-offset-8 font-bold">Total Price</div>
+        <div class="col-2 font-bold">{{ order.totalPrice | currency }}</div>
+      </div>
     </p-fieldset>
     <p-fieldset styleClass="mb-4" legend="Order Address" [toggleable]="true">
       Content
