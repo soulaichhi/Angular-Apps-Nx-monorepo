@@ -33,6 +33,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { EditorModule } from 'primeng/editor';
 import { TagModule } from 'primeng/tag';
 import { InputMaskModule } from 'primeng/inputmask';
+import { FieldsetModule } from 'primeng/fieldset';
 import { OrdersListComponent } from './pages/orders/orders-list/orders-list.component';
 import { OrdersDetailComponent } from './pages/orders/orders-detail/orders-detail.component';
 const UX_MODULES = [
@@ -51,6 +52,7 @@ const UX_MODULES = [
   EditorModule,
   TagModule,
   InputMaskModule,
+  FieldsetModule,
 ];
 @NgModule({
   declarations: [

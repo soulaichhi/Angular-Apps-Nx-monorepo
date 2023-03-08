@@ -1,6 +1,6 @@
 import { Order, OrdersService } from '@ang-apps-monorepo/orders';
 import { Component, OnInit } from '@angular/core';
-
+import { Router } from '@angular/router';
 const ORDER_STATUS = {
   0: {
     label: 'Pending',
@@ -31,14 +31,18 @@ const ORDER_STATUS = {
 export class OrdersListComponent implements OnInit {
   orders: Order[] = [];
   orderStatus = ORDER_STATUS;
-  constructor(private ordersService: OrdersService) {}
+  constructor(private ordersService: OrdersService, private router: Router) {}
   ngOnInit(): void {
     this._getOrders();
   }
 
-  _getOrders() {
+  private _getOrders() {
     this.ordersService.getOrders().subscribe((orders) => {
       this.orders = orders;
     });
   }
+  showOrder(orderId: string) {
+    this.router.navigateByUrl(`orders/${orderId}`);
+  }
+  deleteOrder(orderId: string) {}
 }

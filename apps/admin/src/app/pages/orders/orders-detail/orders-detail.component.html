@@ -1,1 +1,31 @@
-<p>orders-detail works!</p>
+<p-toast></p-toast>
+<div class="admin-page" *ngIf="order">
+  <p-card header="View Order" subheader="You can edit Order Status here">
+    <p-fieldset styleClass="mb-4" legend="Order Details" [toggleable]="true">
+      <div class="grid">
+        <div class="col-4">
+          <h5>Order Id</h5>
+          <p>{{ order.id }}</p>
+        </div>
+        <div class="col-4">
+          <h5>Order Date</h5>
+          <p>{{ order.dateOrdered }}</p>
+        </div>
+        <div class="col-4">
+          <h5>Order Status</h5>
+          <p-dropdown></p-dropdown>
+        </div>
+        <div class="col-4">
+          <h5>Order Total Price</h5>
+          <p>{{ order.totalPrice }}</p>
+        </div>
+      </div>
+    </p-fieldset>
+    <p-fieldset styleClass="mb-4" legend="Order Items" [toggleable]="true">
+      Content
+    </p-fieldset>
+    <p-fieldset styleClass="mb-4" legend="Order Address" [toggleable]="true">
+      Content
+    </p-fieldset>
+  </p-card>
+</div>
