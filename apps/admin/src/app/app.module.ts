@@ -36,6 +36,7 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { FieldsetModule } from 'primeng/fieldset';
 import { OrdersListComponent } from './pages/orders/orders-list/orders-list.component';
 import { OrdersDetailComponent } from './pages/orders/orders-detail/orders-detail.component';
+import { UsersModule } from '@ang-apps-monorepo/users';
 const UX_MODULES = [
   CardModule,
   ToolbarModule,
@@ -77,6 +78,7 @@ const UX_MODULES = [
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes, { initialNavigation: 'enabledBlocking' }),
     ...UX_MODULES,
+    UsersModule,
   ],
   providers: [CategoriesService, MessageService, ConfirmationService],
   bootstrap: [AppComponent],
