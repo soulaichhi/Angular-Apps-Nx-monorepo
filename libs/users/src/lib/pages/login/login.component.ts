@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { LocalStorageService } from '../../services/local-storage.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'users-login',
   templateUrl: './login.component.html',
@@ -16,7 +17,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private auth: AuthService,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private router: Router
   ) {}
   ngOnInit(): void {
     this._initFormGroup();
@@ -38,6 +40,7 @@ export class LoginComponent implements OnInit {
       (user) => {
         this.authError = false;
         this.localStorageService.setToken(user.token);
+        this.router.navigate(['/']);
       },
       (error: HttpErrorResponse) => {
         console.log(error);
