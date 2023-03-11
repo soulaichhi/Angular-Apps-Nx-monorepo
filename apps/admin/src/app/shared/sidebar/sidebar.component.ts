@@ -1,3 +1,4 @@
+import { AuthService } from '@ang-apps-monorepo/users';
 import { Component } from '@angular/core';
 
 @Component({
@@ -5,5 +6,8 @@ import { Component } from '@angular/core';
   templateUrl: './sidebar.component.html',
 })
 export class SidebarComponent {
-
+  constructor(private authService: AuthService) {}
+  logoutUser() {
+    this.authService.logout();
+  }
 }
