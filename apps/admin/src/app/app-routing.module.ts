@@ -1,5 +1,6 @@
 import { AuthGuardService } from '@ang-apps-monorepo/users';
-import { Route } from '@angular/router';
+import { NgModule } from '@angular/core';
+import { Route, RouterModule } from '@angular/router';
 import { CategoriesFormComponent } from './pages/categories/categories-form/categories-form.component';
 import { CategoriesListComponent } from './pages/categories/categories-list/categories-list.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
@@ -11,14 +12,14 @@ import { UsersFormComponent } from './pages/users/users-form/users-form.componen
 import { UsersListComponent } from './pages/users/users-list/users-list.component';
 import { ShellComponent } from './shared/shell/shell.component';
 
-export const appRoutes: Route[] = [
+const appRoutes: Route[] = [
   {
     path: '',
     component: ShellComponent,
     canActivate: [AuthGuardService],
     children: [
       {
-        path: 'dashboard',
+        path: '',
         component: DashboardComponent,
       },
       {
@@ -67,4 +68,18 @@ export const appRoutes: Route[] = [
       },
     ],
   },
+  {
+    path: '**',
+    redirectTo: '',
+    pathMatch: 'full',
+  },
 ];
+@NgModule({
+  imports: [
+    RouterModule.forRoot(appRoutes, { initialNavigation: 'enabledBlocking' }),
+  ],
+  exports: [RouterModule],
+  declarations: [],
+  providers: [],
+})
+export class AppRoutingModule {}

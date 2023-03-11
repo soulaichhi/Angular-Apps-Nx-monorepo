@@ -3,8 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
-import { RouterModule } from '@angular/router';
-import { appRoutes } from './app.routes';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { ShellComponent } from './shared/shell/shell.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
@@ -37,6 +35,7 @@ import { FieldsetModule } from 'primeng/fieldset';
 import { OrdersListComponent } from './pages/orders/orders-list/orders-list.component';
 import { OrdersDetailComponent } from './pages/orders/orders-detail/orders-detail.component';
 import { JwtInterceptor, UsersModule } from '@ang-apps-monorepo/users';
+import { AppRoutingModule } from './app-routing.module';
 const UX_MODULES = [
   CardModule,
   ToolbarModule,
@@ -76,7 +75,7 @@ const UX_MODULES = [
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(appRoutes, { initialNavigation: 'enabledBlocking' }),
+    AppRoutingModule,
     ...UX_MODULES,
     UsersModule,
   ],
