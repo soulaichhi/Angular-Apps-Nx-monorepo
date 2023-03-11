@@ -15,7 +15,7 @@ import { CardModule } from 'primeng/card';
 import { ToolbarModule } from 'primeng/toolbar';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CategoriesFormComponent } from './pages/categories/categories-form/categories-form.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { ToastModule } from 'primeng/toast';
@@ -36,7 +36,7 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { FieldsetModule } from 'primeng/fieldset';
 import { OrdersListComponent } from './pages/orders/orders-list/orders-list.component';
 import { OrdersDetailComponent } from './pages/orders/orders-detail/orders-detail.component';
-import { UsersModule } from '@ang-apps-monorepo/users';
+import { JwtInterceptor, UsersModule } from '@ang-apps-monorepo/users';
 const UX_MODULES = [
   CardModule,
   ToolbarModule,
@@ -80,7 +80,12 @@ const UX_MODULES = [
     ...UX_MODULES,
     UsersModule,
   ],
-  providers: [CategoriesService, MessageService, ConfirmationService],
+  providers: [
+    CategoriesService,
+    MessageService,
+    ConfirmationService,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
