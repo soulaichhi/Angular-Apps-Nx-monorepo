@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Product } from '../models/product';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { environment } from '@env/environment';
 @Injectable({
   providedIn: 'root',
@@ -20,6 +20,11 @@ export class ProductsService {
 
   createProduct(productData: FormData): Observable<Product> {
     return this.http.post<Product>(this.apiURLProducts, productData);
+  }
+  getProductsCount(): Observable<number> {
+    return this.http
+      .get<number>(`${this.apiURLProducts}/get/count`)
+      .pipe(map((objectValue: any) => objectValue.productCount));
   }
 
   // deleteProduct(productId: string): Observable<object> {

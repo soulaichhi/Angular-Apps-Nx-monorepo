@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { environment } from '@env/environment';
 import { Order } from '../models/order';
 // import {environment} from '@ang-apps-monorepo/environments/environment';
@@ -14,7 +14,16 @@ export class OrdersService {
   getOrders(): Observable<Order[]> {
     return this.http.get<Order[]>(this.apiURLOrders);
   }
-
+  getOrdersCount(): Observable<number> {
+    return this.http
+      .get<number>(`${this.apiURLOrders}/get/count`)
+      .pipe(map((objectValue: any) => objectValue.orderCount));
+  }
+  getTotalSales(): Observable<number> {
+    return this.http
+      .get<number>(`${this.apiURLOrders}/get/totalsales`)
+      .pipe(map((objectValue: any) => objectValue.totalsales));
+  }
   getOrder(orderId: string): Observable<Order> {
     return this.http.get<Order>(`${this.apiURLOrders}/${orderId}`);
   }
