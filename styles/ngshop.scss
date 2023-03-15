@@ -26,6 +26,10 @@
 //Libs
 @import './libs/ui/ui.scss';
 
+//components
+
+@import './libs/products/products-search.scss';
+
 .container {
   width: 1200px;
   padding: 15px;
