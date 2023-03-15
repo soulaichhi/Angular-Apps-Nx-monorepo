@@ -1,22 +1,23 @@
 import { User, UsersService } from '@ang-apps-monorepo/users';
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { timer } from 'rxjs';
+import { Subject, takeUntil, timer } from 'rxjs';
 
 @Component({
   selector: 'admin-users-form',
   templateUrl: './users-form.component.html',
   styles: [],
 })
-export class UsersFormComponent implements OnInit {
+export class UsersFormComponent implements OnInit, OnDestroy {
   form: FormGroup;
   isSubmitted = false;
   editMode = false;
   currentUserId: string;
   countries = [];
+  endsubs$: Subject<any> = new Subject();
   constructor(
     private formBuilder: FormBuilder,
     private usersService: UsersService,
@@ -28,6 +29,10 @@ export class UsersFormComponent implements OnInit {
     this._initUserForm();
     this._getCountries();
     this._checkEditMode();
+  }
+  ngOnDestroy(): void {
+    this.endsubs$.next(true);
+    this.endsubs$.complete();
   }
 
   private _initUserForm() {
@@ -49,27 +54,30 @@ export class UsersFormComponent implements OnInit {
   }
 
   private _addUser(user: User) {
-    this.usersService.createUser(user).subscribe(
-      (response) => {
-        this.messageService.add({
-          severity: 'success',
-          summary: 'User',
-          detail: `The User ${response.name} is Added`,
-        });
-        timer(2000)
-          .toPromise()
-          .then(() => {
-            this.location.back();
+    this.usersService
+      .createUser(user)
+      .pipe(takeUntil(this.endsubs$))
+      .subscribe(
+        (response) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'User',
+            detail: `The User ${response.name} is Added`,
           });
-      },
-      (error) => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: `Error ${error.status}`,
-        });
-      }
-    );
+          timer(2000)
+            .toPromise()
+            .then(() => {
+              this.location.back();
+            });
+        },
+        (error) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: `Error ${error.status}`,
+          });
+        }
+      );
   }
   goBack() {
     this.location.back();
@@ -100,47 +108,53 @@ export class UsersFormComponent implements OnInit {
   }
 
   private _updateUser(user: User) {
-    this.usersService.updateUser(user).subscribe(
-      (user: User) => {
-        this.messageService.add({
-          severity: 'success',
-          summary: 'User',
-          detail: `The User ${user.name} is Updated`,
-        });
-        timer(2000)
-          .toPromise()
-          .then(() => {
-            this.location.back();
+    this.usersService
+      .updateUser(user)
+      .pipe(takeUntil(this.endsubs$))
+      .subscribe(
+        (user: User) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'User',
+            detail: `The User ${user.name} is Updated`,
           });
-      },
-      (error) => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: `Error ${error.status}`,
-        });
-      }
-    );
+          timer(2000)
+            .toPromise()
+            .then(() => {
+              this.location.back();
+            });
+        },
+        (error) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: `Error ${error.status}`,
+          });
+        }
+      );
   }
 
   private _checkEditMode() {
-    this.route.params.subscribe((params) => {
+    this.route.params.pipe(takeUntil(this.endsubs$)).subscribe((params) => {
       if (params.id) {
         this.editMode = true;
         this.currentUserId = params.id;
-        this.usersService.getUser(params.id).subscribe((user) => {
-          this.userForm.name.setValue(user.name);
-          this.userForm.email.setValue(user.email);
-          this.userForm.phone.setValue(user.phone);
-          this.userForm.isAdmin.setValue(user.isAdmin);
-          this.userForm.street.setValue(user.street);
-          this.userForm.apartment.setValue(user.apartment);
-          this.userForm.zip.setValue(user.zip);
-          this.userForm.city.setValue(user.city);
-          this.userForm.country.setValue(user.country);
-          this.userForm.password.setValidators([]);
-          this.userForm.password.updateValueAndValidity();
-        });
+        this.usersService
+          .getUser(params.id)
+          .pipe(takeUntil(this.endsubs$))
+          .subscribe((user) => {
+            this.userForm.name.setValue(user.name);
+            this.userForm.email.setValue(user.email);
+            this.userForm.phone.setValue(user.phone);
+            this.userForm.isAdmin.setValue(user.isAdmin);
+            this.userForm.street.setValue(user.street);
+            this.userForm.apartment.setValue(user.apartment);
+            this.userForm.zip.setValue(user.zip);
+            this.userForm.city.setValue(user.city);
+            this.userForm.country.setValue(user.country);
+            this.userForm.password.setValidators([]);
+            this.userForm.password.updateValueAndValidity();
+          });
       }
     });
   }

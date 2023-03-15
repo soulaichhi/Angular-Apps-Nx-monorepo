@@ -1,17 +1,19 @@
 import { Order, OrdersService } from '@ang-apps-monorepo/orders';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { Subject, takeUntil } from 'rxjs';
 import { ORDER_STATUS } from '../order.constants';
 @Component({
   selector: 'admin-orders-detail',
   templateUrl: './orders-detail.component.html',
   styles: [],
 })
-export class OrdersDetailComponent implements OnInit {
+export class OrdersDetailComponent implements OnInit, OnDestroy {
   order: Order;
   orderStatuses = [];
   selectedStatus: any;
+  endsubs$: Subject<any> = new Subject();
   constructor(
     private orderService: OrdersService,
     private route: ActivatedRoute,
@@ -20,6 +22,10 @@ export class OrdersDetailComponent implements OnInit {
   ngOnInit(): void {
     this._mapOrderStatus();
     this._getOrder();
+  }
+  ngOnDestroy(): void {
+    this.endsubs$.next(true);
+    this.endsubs$.complete();
   }
   private _mapOrderStatus() {
     this.orderStatuses = Object.keys(ORDER_STATUS).map((key) => {
@@ -30,18 +36,22 @@ export class OrdersDetailComponent implements OnInit {
     });
   }
   private _getOrder() {
-    this.route.params.subscribe((params) => {
+    this.route.params.pipe(takeUntil(this.endsubs$)).subscribe((params) => {
       if (params.id) {
-        this.orderService.getOrder(params.id).subscribe((order) => {
-          this.order = order;
-          this.selectedStatus = order.status;
-        });
+        this.orderService
+          .getOrder(params.id)
+          .pipe(takeUntil(this.endsubs$))
+          .subscribe((order) => {
+            this.order = order;
+            this.selectedStatus = order.status;
+          });
       }
     });
   }
   onStatusChange(event) {
     this.orderService
       .updateOrder({ status: event.value }, this.order.id)
+      .pipe(takeUntil(this.endsubs$))
       .subscribe(
         () => {
           this.messageService.add({
