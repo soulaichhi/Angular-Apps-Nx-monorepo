@@ -10,6 +10,7 @@ import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { UiModule} from '@ang-apps-monorepo/ui';
 import { AccordionModule} from 'primeng/accordion';
+import { NavComponent } from './shared/nav/nav.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,6 +18,7 @@ import { AccordionModule} from 'primeng/accordion';
     ProductListComponent,
     HeaderComponent,
     FooterComponent,
+    NavComponent,
   ],
   imports: [
     BrowserModule,
