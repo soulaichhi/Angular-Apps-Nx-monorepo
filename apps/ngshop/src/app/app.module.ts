@@ -8,10 +8,10 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
 import { ProductListComponent } from './pages/product-list/product-list.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
-import { UiModule } from '@ang-apps-monorepo/ui';
 import { AccordionModule } from 'primeng/accordion';
 import { NavComponent } from './shared/nav/nav.component';
 import { ProductsModule } from '@ang-apps-monorepo/products';
+import { UiModule } from '@ang-apps-monorepo/ui';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,9 +25,9 @@ import { ProductsModule } from '@ang-apps-monorepo/products';
     BrowserModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(appRoutes),
-    UiModule,
     AccordionModule,
     ProductsModule,
+    UiModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
