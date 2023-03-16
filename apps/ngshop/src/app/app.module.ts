@@ -12,6 +12,7 @@ import { AccordionModule } from 'primeng/accordion';
 import { NavComponent } from './shared/nav/nav.component';
 import { ProductsModule } from '@ang-apps-monorepo/products';
 import { UiModule } from '@ang-apps-monorepo/ui';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +28,9 @@ import { UiModule } from '@ang-apps-monorepo/ui';
     RouterModule.forRoot(appRoutes),
     AccordionModule,
     ProductsModule,
+
     UiModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
