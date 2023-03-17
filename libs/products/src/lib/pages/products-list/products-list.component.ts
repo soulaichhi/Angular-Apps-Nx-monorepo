@@ -27,9 +27,9 @@ export class ProductsListComponent implements OnInit, OnDestroy {
     this.endsubs$.next(true);
     this.endsubs$.complete();
   }
-  private _getProducts() {
+  private _getProducts(categoriesFilter?: string[]) {
     this.productsService
-      .getProducts()
+      .getProducts(categoriesFilter)
       .pipe(takeUntil(this.endsubs$))
       .subscribe((products) => {
         this.products = products;
@@ -42,5 +42,11 @@ export class ProductsListComponent implements OnInit, OnDestroy {
       .subscribe((categories) => {
         this.categories = categories;
       });
+  }
+  categoryFilter() {
+    const selectedCategories = this.categories
+      .filter((category) => category.checked)
+      .map((category) => category.id);
+    this._getProducts(selectedCategories);
   }
 }
