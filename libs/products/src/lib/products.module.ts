@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { ProductPageComponent } from './pages/product-page/product-page.component';
 import { RatingModule } from 'primeng/rating';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { UiModule } from '@ang-apps-monorepo/ui';
 const routes: Routes = [
   { path: 'products', component: ProductsListComponent },
   { path: 'category/:categoryid', component: ProductsListComponent },
@@ -26,6 +27,7 @@ const routes: Routes = [
     RatingModule,
     InputNumberModule,
     FormsModule,
+    UiModule,
   ],
   declarations: [
     ProductsSearchComponent,
