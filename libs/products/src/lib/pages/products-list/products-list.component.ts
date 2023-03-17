@@ -4,7 +4,7 @@ import { Category } from '../../models/category';
 import { Product } from '../../models/product';
 import { CategoriesService } from '../../services/categories.service';
 import { ProductsService } from '../../services/products.service';
-
+import { ActivatedRoute } from '@angular/router';
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'products-list',
@@ -14,13 +14,22 @@ import { ProductsService } from '../../services/products.service';
 export class ProductsListComponent implements OnInit, OnDestroy {
   products: Product[] = [];
   categories: Category[] = [];
+  isCategoryPage!: boolean;
   endsubs$: Subject<any> = new Subject();
   constructor(
     private productsService: ProductsService,
-    private categoriesService: CategoriesService
+    private categoriesService: CategoriesService,
+    private route: ActivatedRoute
   ) {}
   ngOnInit(): void {
-    this._getProducts();
+    this.route.params.subscribe((params) => {
+      params.categoryid
+        ? this._getProducts([params.categoryid])
+        : this._getProducts();
+      params.categoryid
+        ? (this.isCategoryPage = true)
+        : (this.isCategoryPage = false);
+    });
     this._getCategories();
   }
   ngOnDestroy(): void {

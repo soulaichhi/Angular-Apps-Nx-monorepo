@@ -9,7 +9,10 @@ import { ButtonModule } from 'primeng/button';
 import { ProductsListComponent } from './pages/products-list/products-list.component';
 import { CheckboxModule } from 'primeng/checkbox';
 import { FormsModule } from '@angular/forms';
-const routes: Routes = [{ path: 'products', component: ProductsListComponent }];
+const routes: Routes = [
+  { path: 'products', component: ProductsListComponent },
+  { path: 'category/:categoryid', component: ProductsListComponent },
+];
 @NgModule({
   imports: [
     CommonModule,
