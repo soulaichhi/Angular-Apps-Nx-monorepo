@@ -7,11 +7,14 @@ export const CART_KEY = 'cart';
 export class CartService {
   constructor() {}
   initCartLocalStorage() {
-    const initialCart = {
-      items: [],
-    };
-    const initialCartJson = JSON.stringify(initialCart);
-    localStorage.setItem(CART_KEY, initialCartJson);
+    const cart: Cart = this.getCart();
+    if (!cart) {
+      const initialCart = {
+        items: [],
+      };
+      const initialCartJson = JSON.stringify(initialCart);
+      localStorage.setItem(CART_KEY, initialCartJson);
+    }
   }
   getCart(): Cart {
     const cartJsonString: string = localStorage.getItem(CART_KEY);
