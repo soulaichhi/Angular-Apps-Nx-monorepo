@@ -12,6 +12,7 @@ import { NavComponent } from './shared/nav/nav.component';
 import { ProductsModule } from '@ang-apps-monorepo/products';
 import { UiModule } from '@ang-apps-monorepo/ui';
 import { HttpClientModule } from '@angular/common/http';
+import { OrdersModule } from '@ang-apps-monorepo/orders';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +27,7 @@ import { HttpClientModule } from '@angular/common/http';
     RouterModule.forRoot(appRoutes),
     AccordionModule,
     ProductsModule,
-
+    OrdersModule,
     UiModule,
     HttpClientModule,
   ],
