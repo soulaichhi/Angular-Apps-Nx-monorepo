@@ -13,6 +13,9 @@ import { ProductsModule } from '@ang-apps-monorepo/products';
 import { UiModule } from '@ang-apps-monorepo/ui';
 import { HttpClientModule } from '@angular/common/http';
 import { OrdersModule } from '@ang-apps-monorepo/orders';
+import { MessageService } from 'primeng/api';
+import { MessagesComponent } from './shared/messages/messages.component';
+import { ToastModule } from 'primeng/toast';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,6 +23,7 @@ import { OrdersModule } from '@ang-apps-monorepo/orders';
     HeaderComponent,
     FooterComponent,
     NavComponent,
+    MessagesComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,8 +34,10 @@ import { OrdersModule } from '@ang-apps-monorepo/orders';
     OrdersModule,
     UiModule,
     HttpClientModule,
+    ToastModule,
   ],
-  providers: [],
+  providers: [MessageService],
   bootstrap: [AppComponent],
+  exports: [MessagesComponent],
 })
 export class AppModule {}
