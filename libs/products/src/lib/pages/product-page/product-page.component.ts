@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ProductsService } from '../../services/products.service';
 import { takeUntil, Subject } from 'rxjs';
 import { Product } from '../../models/product';
+import { CartItem, CartService } from '@ang-apps-monorepo/orders';
 @Component({
   selector: 'ang-apps-monorepo-product-page',
   templateUrl: './product-page.component.html',
@@ -10,11 +11,12 @@ import { Product } from '../../models/product';
 })
 export class ProductPageComponent implements OnInit, OnDestroy {
   product!: Product;
-  quantity!: number;
+  quantity = 1;
   endsubs$: Subject<any> = new Subject();
   constructor(
     private productsService: ProductsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private cartService: CartService
   ) {}
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
@@ -27,7 +29,13 @@ export class ProductPageComponent implements OnInit, OnDestroy {
     this.endsubs$.next(true);
     this.endsubs$.complete();
   }
-  addProductToCart() {}
+  addProductToCart() {
+    const cartItem: CartItem = {
+      productId: this.product.id,
+      quantity: this.quantity,
+    };
+    this.cartService.setCartItem(cartItem);
+  }
 
   private _getProduct(id: string) {
     this.productsService
