@@ -8,6 +8,7 @@ import { BadgeModule } from 'primeng/badge';
 import { CartPageComponent } from './pages/cart-page/cart-page.component';
 import { ButtonModule } from 'primeng/button';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { OrderSummaryComponent } from './components/order-summary/order-summary.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -16,8 +17,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
     ButtonModule,
     InputNumberModule,
   ],
-  declarations: [CartIconComponent, CartPageComponent],
-  exports: [CartIconComponent, CartPageComponent],
+  declarations: [CartIconComponent, CartPageComponent, OrderSummaryComponent],
+  exports: [CartIconComponent, CartPageComponent, OrderSummaryComponent],
 })
 export class OrdersModule {
   constructor(cartService: CartService) {
