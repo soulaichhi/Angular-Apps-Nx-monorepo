@@ -3,12 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { environment } from '@env/environment';
 import { Order } from '../models/order';
-// import {environment} from '@ang-apps-monorepo/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
 export class OrdersService {
   apiURLOrders = environment.apiURL + 'orders';
+  apiURLProducts = environment.apiURL + 'products';
   constructor(private http: HttpClient) {}
 
   getOrders(): Observable<Order[]> {
@@ -27,13 +27,10 @@ export class OrdersService {
   getOrder(orderId: string): Observable<Order> {
     return this.http.get<Order>(`${this.apiURLOrders}/${orderId}`);
   }
-
-  createOrder(order: Order): Observable<Order> {
-    return this.http.post<Order>(this.apiURLOrders, order);
-  }
-
-  deleteOrder(orderId: string): Observable<object> {
-    return this.http.delete<object>(`${this.apiURLOrders}/${orderId}`);
+  /*There is a Duplication of code to avoid circular
+  dependency between orders service and products Services*/
+  getProduct(productId: string): Observable<any> {
+    return this.http.get<any>(`${this.apiURLProducts}/${productId}`);
   }
 
   updateOrder(
