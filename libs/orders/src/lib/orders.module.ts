@@ -9,7 +9,11 @@ import { CartPageComponent } from './pages/cart-page/cart-page.component';
 import { ButtonModule } from 'primeng/button';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { OrderSummaryComponent } from './components/order-summary/order-summary.component';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { CheckoutPageComponent } from './pages/checkout-page/checkout-page.component';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputMaskModule } from 'primeng/inputmask';
+import { DropdownModule } from 'primeng/dropdown';
 @NgModule({
   imports: [
     CommonModule,
@@ -17,10 +21,24 @@ import { FormsModule } from '@angular/forms';
     BadgeModule,
     ButtonModule,
     InputNumberModule,
+    ReactiveFormsModule,
     FormsModule,
+    InputTextModule,
+    InputMaskModule,
+    DropdownModule,
   ],
-  declarations: [CartIconComponent, CartPageComponent, OrderSummaryComponent],
-  exports: [CartIconComponent, CartPageComponent, OrderSummaryComponent],
+  declarations: [
+    CartIconComponent,
+    CartPageComponent,
+    OrderSummaryComponent,
+    CheckoutPageComponent,
+  ],
+  exports: [
+    CartIconComponent,
+    CartPageComponent,
+    OrderSummaryComponent,
+    CheckoutPageComponent,
+  ],
 })
 export class OrdersModule {
   constructor(cartService: CartService) {

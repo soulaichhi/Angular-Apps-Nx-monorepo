@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CartService, OrdersService } from '@ang-apps-monorepo/orders';
 import { Subject, take, takeUntil } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'orders-order-summary',
@@ -10,7 +11,16 @@ import { Subject, take, takeUntil } from 'rxjs';
 export class OrderSummaryComponent implements OnInit, OnDestroy {
   totalPrice: number;
   endsubs$: Subject<any> = new Subject();
-  constructor(private cartService: CartService, private ordersService: OrdersService) {}
+  isCheckout = false;
+  constructor(
+    private router: Router,
+    private cartService: CartService,
+    private ordersService: OrdersService
+  ) {
+    this.router.url.includes('checkout')
+      ? (this.isCheckout = true)
+      : (this.isCheckout = false);
+  }
   ngOnInit() {
     this._getOrderSummary();
   }
@@ -33,5 +43,8 @@ export class OrderSummaryComponent implements OnInit, OnDestroy {
         });
       }
     });
+  }
+  navigateToCheckout() {
+    this.router.navigate(['/checkout']);
   }
 }
