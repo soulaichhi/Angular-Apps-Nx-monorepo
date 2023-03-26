@@ -9,6 +9,7 @@ import { CartPageComponent } from './pages/cart-page/cart-page.component';
 import { ButtonModule } from 'primeng/button';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { OrderSummaryComponent } from './components/order-summary/order-summary.component';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   imports: [
     CommonModule,
@@ -16,6 +17,7 @@ import { OrderSummaryComponent } from './components/order-summary/order-summary.
     BadgeModule,
     ButtonModule,
     InputNumberModule,
+    FormsModule,
   ],
   declarations: [CartIconComponent, CartPageComponent, OrderSummaryComponent],
   exports: [CartIconComponent, CartPageComponent, OrderSummaryComponent],

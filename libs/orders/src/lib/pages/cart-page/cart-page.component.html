@@ -24,8 +24,10 @@
             />
           </div>
           <div class="col-7">
-            <div class="cart-item-name">{{cartItem.product.name}}</div>
-            <div class="cart-item-price">{{ cartItem.product.price | currency }}</div>
+            <div class="cart-item-name">{{ cartItem.product.name }}</div>
+            <div class="cart-item-price">
+              {{ cartItem.product.price | currency }}
+            </div>
             <div class="cart-item-remove">
               <p-button
                 icon="pi pi-trash"
@@ -41,12 +43,16 @@
                 [min]="1"
                 [max]="100"
                 [showButtons]="true"
+                [(ngModel)]="cartItem.quantity"
+                (onInput)="updateCartItemQuantity($event, cartItem)"
               >
               </p-inputNumber>
             </div>
             <div class="cart-item-subtotal">
               Subtotal:
-              <span class="cart-item-subtotal-value">{{ cartItem.product.price * cartItem.quantity | currency }}</span>
+              <span class="cart-item-subtotal-value">{{
+                cartItem.product.price * cartItem.quantity | currency
+              }}</span>
             </div>
           </div>
         </div>
