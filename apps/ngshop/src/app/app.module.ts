@@ -16,6 +16,8 @@ import { OrdersModule } from '@ang-apps-monorepo/orders';
 import { MessageService } from 'primeng/api';
 import { MessagesComponent } from './shared/messages/messages.component';
 import { ToastModule } from 'primeng/toast';
+import { UsersModule } from '@ang-apps-monorepo/users';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,6 +37,7 @@ import { ToastModule } from 'primeng/toast';
     UiModule,
     HttpClientModule,
     ToastModule,
+    UsersModule,
   ],
   providers: [MessageService],
   bootstrap: [AppComponent],
