@@ -12,32 +12,32 @@
       <form [formGroup]="checkoutFormGroup">
         <div class="p-fluid formgrid grid">
           <div class="field col-4">
-            <label for="name">Name</label><br />
-            <input pInputText id="name" formControlName="name" type="text" />
-            <br />
+            <label for="name">Name</label><br/>
+            <input pInputText id="name" formControlName="name" type="text"/>
+            <br/>
             <small
               *ngIf="checkoutForm.name.invalid && isSubmitted"
               class="p-error"
-              >Name is Required</small
+            >Name is Required</small
             >
           </div>
           <div class="field col-4">
-            <label for="name">Email</label><br />
-            <input pInputText id="email" formControlName="email" type="text" />
-            <br />
+            <label for="name">Email</label><br/>
+            <input pInputText id="email" formControlName="email" type="text"/>
+            <br/>
             <small
               *ngIf="checkoutForm.email.invalid && isSubmitted"
               class="p-error"
-              ><span *ngIf="checkoutForm.email.errors.required"
-                >Email is Required</span
-              ><span *ngIf="checkoutForm.email.errors.email"
-                >Email is invalid</span
-              ></small
+            ><span *ngIf="checkoutForm.email.errors.required"
+            >Email is Required</span
+            ><span *ngIf="checkoutForm.email.errors.email"
+            >Email is invalid</span
+            ></small
             >
           </div>
 
           <div class="field col-4">
-            <label for="name">Phone</label><br />
+            <label for="name">Phone</label><br/>
             <p-inputMask
               mask="(+999) 999-999999"
               placeholder="(999) 999-999999"
@@ -45,59 +45,68 @@
               formControlName="phone"
               type="text"
             ></p-inputMask
-            ><br />
+            >
+            <br/>
             <small
               *ngIf="checkoutForm.phone.invalid && isSubmitted"
               class="p-error"
-              >Phone is Required</small
+            >Phone is Required</small
             >
           </div>
 
           <div class="field col-4">
-            <label for="street">Street</label><br />
+            <label for="street">Street</label><br/>
             <input
               pInputText
               type="text"
               formControlName="street"
               id="street"
-            /><br />
+            /><br/>
             <small
               *ngIf="checkoutForm.street.invalid && isSubmitted"
               class="p-error"
-              >Street is Required</small
+            >Street is Required</small
             >
           </div>
           <div class="field col-4">
-            <label for="apartment">Apartment</label><br />
+            <label for="apartment">Apartment</label><br/>
             <input
               pInputText
               type="text"
               formControlName="apartment"
               id="apartment"
-            /><br />
+            /><br/>
             <small
               *ngIf="checkoutForm.apartment.invalid && isSubmitted"
               class="p-error"
-              >Apartment is Required</small
+            >Apartment is Required</small
             >
           </div>
           <div class="field col-4">
-            <label for="zip">Zip Code</label><br />
+            <label for="zip">Zip Code</label><br/>
             <input
               pInputText
               type="text"
               formControlName="zip"
               id="zip"
-            /><br />
+            /><br/>
             <small
               *ngIf="checkoutForm.zip.invalid && isSubmitted"
               class="p-error"
-              >Zip is Required</small
+            >Zip is Required</small
             >
           </div>
           <div class="field col-4">
-            <label for="country">Country</label><br />
+            <label for="city">City</label><br/>
+            <input formControlName="city" id="city" type="text" pInputText/>
+            <small *ngIf="checkoutForm.city.invalid && isSubmitted" class="p-error"
+            >City is required</small
+            >
+          </div>
+          <div class="field col-4">
+            <label for="country">Country</label><br/>
             <p-dropdown
+              id="country"
               [filter]="true"
               filterBy="name"
               [showClear]="true"
@@ -107,11 +116,12 @@
               optionLabel="name"
               optionValue="id"
             ></p-dropdown
-            ><br />
+            >
+            <br/>
             <small
               *ngIf="checkoutForm.country.invalid && isSubmitted"
               class="p-error"
-              >Country is Required</small
+            >Country is Required</small
             >
           </div>
         </div>

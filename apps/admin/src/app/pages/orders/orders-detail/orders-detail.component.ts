@@ -1,9 +1,9 @@
-import { Order, OrdersService } from '@ang-apps-monorepo/orders';
+import { Order, OrdersService, ORDER_STATUS } from '@ang-apps-monorepo/orders';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { Subject, takeUntil } from 'rxjs';
-import { ORDER_STATUS } from '../order.constants';
+
 @Component({
   selector: 'admin-orders-detail',
   templateUrl: './orders-detail.component.html',
@@ -14,19 +14,23 @@ export class OrdersDetailComponent implements OnInit, OnDestroy {
   orderStatuses = [];
   selectedStatus: any;
   endsubs$: Subject<any> = new Subject();
+
   constructor(
     private orderService: OrdersService,
     private route: ActivatedRoute,
     private messageService: MessageService
   ) {}
+
   ngOnInit(): void {
     this._mapOrderStatus();
     this._getOrder();
   }
+
   ngOnDestroy(): void {
     this.endsubs$.next(true);
     this.endsubs$.complete();
   }
+
   private _mapOrderStatus() {
     this.orderStatuses = Object.keys(ORDER_STATUS).map((key) => {
       return {
@@ -35,6 +39,7 @@ export class OrdersDetailComponent implements OnInit, OnDestroy {
       };
     });
   }
+
   private _getOrder() {
     this.route.params.pipe(takeUntil(this.endsubs$)).subscribe((params) => {
       if (params.id) {
@@ -48,6 +53,7 @@ export class OrdersDetailComponent implements OnInit, OnDestroy {
       }
     });
   }
+
   onStatusChange(event) {
     this.orderService
       .updateOrder({ status: event.value }, this.order.id)

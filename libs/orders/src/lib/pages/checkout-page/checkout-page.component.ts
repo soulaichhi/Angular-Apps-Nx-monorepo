@@ -1,11 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Subject, takeUntil, timer } from 'rxjs';
-import { User, UsersService } from '@ang-apps-monorepo/users';
-import { MessageService } from 'primeng/api';
-import { Location } from '@angular/common';
-import { OrderItem } from '@ang-apps-monorepo/orders';
+import { UsersService } from '@ang-apps-monorepo/users';
+import {
+  Cart,
+  CartService,
+  Order,
+  OrderItem,
+  OrdersService,
+} from '@ang-apps-monorepo/orders';
 
 @Component({
   selector: 'orders-checkout-page',
@@ -15,16 +18,21 @@ import { OrderItem } from '@ang-apps-monorepo/orders';
 export class CheckoutPageComponent implements OnInit {
   checkoutFormGroup: FormGroup;
   isSubmitted = false;
-  userId: string;
+  userId = '64207806501dd44289fe8c48';
   orderItems: OrderItem[] = [];
   countries = [];
+
   constructor(
     private formBuilder: FormBuilder,
     private usersService: UsersService,
-    private router: Router
+    private router: Router,
+    private cartService: CartService,
+    private ordersService: OrdersService
   ) {}
+
   ngOnInit(): void {
     this._initCheckoutForm();
+    this._getCartItems();
     this._getCountries();
   }
 
@@ -40,13 +48,26 @@ export class CheckoutPageComponent implements OnInit {
       country: ['', Validators.required],
     });
   }
+
   private _getCountries() {
     this.countries = this.usersService.getCountries();
+  }
+
+  private _getCartItems() {
+    const cart: Cart = this.cartService.getCart();
+    this.orderItems = cart.items.map((item) => {
+      return {
+        product: item.productId,
+        quantity: item.quantity,
+      };
+    });
+    //console.log(this.orderItems);
   }
 
   get checkoutForm() {
     return this.checkoutFormGroup.controls;
   }
+
   backToCart() {
     this.router.navigate(['/cart']);
   }
@@ -56,5 +77,21 @@ export class CheckoutPageComponent implements OnInit {
     if (this.checkoutFormGroup.invalid) {
       return;
     }
+    const order: Order = {
+      orderItems: this.orderItems,
+      shippingAddress1: this.checkoutForm.street.value,
+      shippingAddress2: this.checkoutForm.apartment.value,
+      city: this.checkoutForm.city.value,
+      zip: this.checkoutForm.zip.value,
+      country: this.checkoutForm.country.value,
+      phone: this.checkoutForm.phone.value,
+      status: 0,
+      user: this.userId,
+      dateOrdered: `${Date.now()}`,
+    };
+    this.ordersService.createOrder(order).subscribe(() => {
+      //Redirect to thank you page// payment
+      console.log('success');
+    });
   }
 }
