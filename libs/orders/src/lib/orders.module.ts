@@ -14,6 +14,7 @@ import { CheckoutPageComponent } from './pages/checkout-page/checkout-page.compo
 import { InputTextModule } from 'primeng/inputtext';
 import { InputMaskModule } from 'primeng/inputmask';
 import { DropdownModule } from 'primeng/dropdown';
+import { ThankYouComponent } from './pages/thank-you/thank-you.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -32,12 +33,14 @@ import { DropdownModule } from 'primeng/dropdown';
     CartPageComponent,
     OrderSummaryComponent,
     CheckoutPageComponent,
+    ThankYouComponent,
   ],
   exports: [
     CartIconComponent,
     CartPageComponent,
     OrderSummaryComponent,
     CheckoutPageComponent,
+    ThankYouComponent,
   ],
 })
 export class OrdersModule {

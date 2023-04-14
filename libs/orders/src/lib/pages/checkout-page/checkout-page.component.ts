@@ -89,9 +89,14 @@ export class CheckoutPageComponent implements OnInit {
       user: this.userId,
       dateOrdered: `${Date.now()}`,
     };
-    this.ordersService.createOrder(order).subscribe(() => {
-      //Redirect to thank you page// payment
-      console.log('success');
-    });
+    this.ordersService.createOrder(order).subscribe(
+      () => {
+        this.cartService.emptyCart();
+        this.router.navigate(['/success']);
+      },
+      () => {
+        //display some error message to the user
+      }
+    );
   }
 }
